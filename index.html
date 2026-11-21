@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Nossa casa</title>
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="icon" type="image/png" sizes="32x32" href="favicon-32.png">
+<link rel="icon" type="image/png" sizes="192x192" href="icon-192.png">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
+<meta name="apple-mobile-web-app-title" content="Nossa casa">
+<meta name="theme-color" content="#101C18">
+<style>
+body{margin:0;min-height:100vh;display:grid;place-items:center;background:#F1F4F2;color:#101C18;font:16px/1.5 system-ui,-apple-system,Segoe UI,Roboto,sans-serif;padding:24px;text-align:center}
+main{max-width:420px}
+img{width:112px;height:112px;border-radius:26px;box-shadow:0 14px 30px -14px rgba(16,28,24,.5)}
+h1{margin:16px 0 4px;font-size:28px}
+p{margin:6px 0;color:#5A6A64}
+a.btn{display:inline-block;margin:18px 0 8px;background:#B5543A;color:#fff;text-decoration:none;font-weight:700;padding:13px 26px;border-radius:14px}
+.box{text-align:left;background:#fff;border:1px solid #DCE3DF;border-radius:14px;padding:12px 16px;margin-top:18px;font-size:14.5px}
+.box b{color:#101C18}
+.err{color:#b3402e;font-weight:700}
+</style>
+</head>
+<body>
+<main>
+  <img src="icon-192.png" alt="Nossa casa">
+  <h1>Nossa casa</h1>
+  <p id="msg">Av. Terezina, 928 · Bairro Brasil</p>
+  <a class="btn" id="go" href="#">Abrir o app</a>
+  <div class="box">
+    <b>Para pôr na tela inicial</b><br>
+    <b>Android (Chrome):</b> menu ⋮ → Adicionar à tela inicial.<br>
+    <b>iPhone (Safari):</b> botão Compartilhar → Adicionar à Tela de Início.<br>
+    Depois é só tocar no ícone da casinha.
+  </div>
+</main>
+<script>
+// >>> COLE AQUI o endereço do app (o que termina em /exec), entre as aspas:
+var APP = "COLE_AQUI_A_URL_DO_APP";
+
+var ok = APP.indexOf("http") === 0;
+var vaiDireto = new URLSearchParams(location.search).get("go") === "1";
+document.getElementById("go").href = ok ? APP : "#";
+if (!ok) {
+  document.getElementById("msg").innerHTML = '<span class="err">Falta colar o endereço do app dentro do index.html.</span>';
+} else if (vaiDireto) {
+  location.replace(APP);
+} else {
+  // a partir daqui, quem adicionar esta página à tela inicial grava o endereço que abre direto no app
+  history.replaceState(null, "", "?go=1");
+}
+</script>
+</body>
+</html>
